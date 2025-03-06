@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,10 +38,17 @@ public class StudentEntity {
      * student in the course.
      */
     // TODO
+    @PodamExclude
+    @ManyToMany(mappedBy = "students", fetch = FetchType.LAZY)
+    private List<CourseEntity> courses = new ArrayList<>();
+
 
     /**
      * A list of all the courses that the student has ever taken. No course should
      * appear more than once in this list.
      */
     // TODO
+    @PodamExclude
+    @OneToMany (mappedBy = "student")
+    private List<RecordEntity> records = new ArrayList<>();
 }

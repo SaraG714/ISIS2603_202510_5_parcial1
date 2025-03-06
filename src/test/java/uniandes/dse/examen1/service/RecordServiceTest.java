@@ -67,11 +67,24 @@ public class RecordServiceTest {
      * Tests the normal creation of a record for a student in a course
      */
     @Test
-    void testCreateRecord() {
+    void testCreateRecord() throws InvalidRecordException{
         // TODO
-    }
 
-    /**
+        CourseEntity course = factory.manufacturePojo(CourseEntity.class);
+        StudentEntity student = factory.manufacturePojo(StudentEntity.class);
+
+        RecordEntity recordCreado = recordService.createRecord(student.getLogin(), course.getCourseCode(), 2.0, "cuarto");
+
+        AssertNotNull(recordCreado, "No debe ser nulo.");
+        
+            }
+        
+            private void AssertNotNull(RecordEntity recordCreado, String string) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'AssertNotNull'");
+            }
+        
+            /**
      * Tests the creation of a record when the login of the student is wrong
      */
     @Test

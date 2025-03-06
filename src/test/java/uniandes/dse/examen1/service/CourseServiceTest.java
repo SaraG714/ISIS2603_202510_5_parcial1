@@ -1,6 +1,8 @@
 package uniandes.dse.examen1.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -36,12 +38,27 @@ public class CourseServiceTest {
     }
 
     @Test
-    void testCreateRecordMissingCourse() {
+    void testCreateCourse() throws RepeatedCourseException {
         // TODO
+        CourseEntity newCourse = factory.manufacturePojo(CourseEntity.class);
+
+        CourseEntity courseCreado = courseService.createCourse(newCourse);
+
+        assertNotNull(courseCreado, "La especialidad no debería ser nula");
+    
+        assertEquals(courseCreado.getName(), newCourse.getName());
+
+
     }
 
     @Test
     void testCreateRepeatedCourse() {
         // TODO
+        CourseEntity courseExistente = factory.manufacturePojo(CourseEntity.class);
+        entityManager.persist(courseExistente);
+
+        assertThrows(RepeatedCourseException.class, ()->{
+            courseService.createCourse(courseExistente);
+        }); 
     }
 }
