@@ -62,6 +62,13 @@ public class RecordService {
         newRecord.setFinalGrade(grade);
         newRecord.setSemester(semester);
 
+        student.getRecords().add(newRecord);
+
+        if (!student.getCourses().contains(course)){
+
+            student.getCourses().add(course);
+        }
+
         return recordRepository.save(newRecord);
     }
 }
